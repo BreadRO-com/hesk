@@ -146,10 +146,12 @@ function handle_registration() {
     }
 
     $name = hesk_input(hesk_POST('name'));
-    if ($name) {
-        $myuser['name'] = $name;
-    } else {
+    if (! $name) {
         $hesk_error_buffer['name'] = $hesklang['enter_real_name'];
+    } else if (preg_match('/^[0-9A-Za-z]{6,}$/', $name)) {
+        $hesk_error_buffer['name'] = "姓名需要至少 6 个字符，并且仅可使用英文大小写以及数字。";
+    } else {
+        $myuser['name'] = $name;
     }
 
     $email = hesk_validateEmail(hesk_POST('email'), 'ERR', 0);
