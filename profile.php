@@ -80,13 +80,15 @@ function handle_profile_update(&$hesk_error_buffer, $customerUserContext) {
     $name = hesk_input(hesk_POST('name'));
     if (!$name) {
         $hesk_error_buffer['name'] = $hesklang['enter_your_name'];
+    } else if ($name !== $customerUserContext['name']) {
+        $hesk_error_buffer['name'] = "重命名功能已被禁用。";
     }
 
     $language_sql = '';
     if ($hesk_settings['can_sel_lang']) {
         $language = hesk_input( hesk_POST('language') ) or $language = $hesk_settings['language'];
         if (isset($hesk_settings['languages'][$language])) {
-            $language_sql = ", `language` = '".hesk_dbEscape($language)."' ";
+            $language_sql = " `language` = '".hesk_dbEscape($language)."' ";
             if ($language != $hesk_settings['language']) {
                 hesk_setLanguage($language);
                 $customerUserContext['language'] = $language;
@@ -98,11 +100,8 @@ function handle_profile_update(&$hesk_error_buffer, $customerUserContext) {
     if (count($hesk_error_buffer) === 0) {
         hesk_dbQuery("UPDATE `".hesk_dbEscape($hesk_settings['db_pfix'])."customers` 
                 SET
-                    `name` = '".hesk_dbEscape($name)."'
                     $language_sql
                 WHERE `id` = ".intval($_SESSION['customer']['id']));
-        $_SESSION['customer']['name'] = $name;
-        $customerUserContext['name'] = $name;
         hesk_process_messages($hesklang['customer_profile_saved'], 'NOREDIRECT', 'SUCCESS');
     }
 }

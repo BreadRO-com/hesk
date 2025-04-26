@@ -113,6 +113,7 @@ require_once(TEMPLATE_PATH . 'customer/partial/login-navbar-elements.php');
                                     <input type="text" name="name" maxlength="255"
                                            class="form-control <?php if (in_array('name', $validationFailures)) {echo 'isError';} ?>"
                                            value="<?php echo $customerUserContext['name']; ?>"
+                                           readonly="readonly"
                                            required>
                                     <div class="form-control__error"><?php echo $hesklang['this_field_is_required']; ?></div>
                                 </div>
