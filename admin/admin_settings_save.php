@@ -897,10 +897,10 @@ $hesk_settings[\'check_updates\']=' . hesk_getProperty($set, 'check_updates') . 
 // ==> BreadRO
 
 // --> Database settings
-$hesk_settings[\'breadro_db_host\']=' . hesk_getProperty($set, 'breadro_db_host') . ';
-$hesk_settings[\'breadro_db_name\']=' . hesk_getProperty($set, 'breadro_db_name') . ';
-$hesk_settings[\'breadro_db_user\']=' . hesk_getProperty($set, 'breadro_db_user') . ';
-$hesk_settings[\'breadro_db_pass\']=' . hesk_getProperty($set, 'breadro_db_pass') . ';
+$hesk_settings[\'breadro_db_host\']=\'' . hesk_getProperty($set, 'breadro_db_host') . '\';
+$hesk_settings[\'breadro_db_name\']=\'' . hesk_getProperty($set, 'breadro_db_name') . '\';
+$hesk_settings[\'breadro_db_user\']=\'' . hesk_getProperty($set, 'breadro_db_user') . '\';
+$hesk_settings[\'breadro_db_pass\']=\'' . hesk_getProperty($set, 'breadro_db_pass') . '\';
 
 #############################
 #     DO NOT EDIT BELOW     #
