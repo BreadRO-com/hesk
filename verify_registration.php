@@ -20,6 +20,7 @@ require(HESK_PATH . 'hesk_settings.inc.php');
 define('TEMPLATE_PATH', HESK_PATH . "theme/{$hesk_settings['site_theme']}/");
 require(HESK_PATH . 'inc/common.inc.php');
 require(HESK_PATH . 'inc/customer_accounts.inc.php');
+require(HESK_PATH . 'inc/breadro.inc.php');
 
 // Are customer accounts enabled?
 if (!$hesk_settings['customer_accounts']) {
@@ -89,6 +90,23 @@ if ($hesk_settings['customer_accounts_admin_approvals'] && $verification_type ==
     $message = $verification_type === 'NEW' ?
         $hesklang['customer_registration_verify_success'] :
         $hesklang['customer_change_email_verify_success'];
+    if ($verification_type === 'NEW') {
+        $customer_rs = hesk_dbQuery("SELECT `name`, `email` FROM `".hesk_dbEscape($hesk_settings['db_pfix'])."customers`
+            WHERE `email` = '".hesk_dbEscape($email)."'
+            LIMIT 1");
+        $customer = hesk_dbFetchAssoc($customer_rs);
+        $customer['pw'] = uniqid();
+
+        add_breadro_account($customer);
+        $message .= "<br/><br/>你的 BreadRO 游戏登陆账户为：".$customer['name'];
+        $message .= "<br/>你的 BreadRO 游戏登陆密码为：".$customer['pw'];
+        $message .= "<br/>本消息仅显示一次，请于登陆游戏后尽快修改你的密码。";
+    }
     hesk_process_messages($message, 'login.php', 'SUCCESS');
 }
 
+function add_breadro_account($customer) {
+    breadro_dbConnect();
+    breadro_dbQuery("INSERT INTO `login` (`userid`, `user_pass`, `email`)
+        VALUES ('".breadro_dbEscape($customer['name'])."', MD5('".breadro_dbEscape($customer['pw'])."'), '".breadro_dbEscape($customer['email'])."')");
+}

@@ -251,6 +251,13 @@ $hesk_settings['online']=0;
 $hesk_settings['online_min']=10;
 $hesk_settings['check_updates']=1;
 
+// ==> BreadRO
+
+// --> Database settings
+$hesk_settings['breadro_db_host']='localhost';
+$hesk_settings['breadro_db_name']='ragnarok';
+$hesk_settings['breadro_db_user']='test';
+$hesk_settings['breadro_db_pass']='test';
 
 #############################
 #     DO NOT EDIT BELOW     #
