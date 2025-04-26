@@ -195,6 +195,12 @@ function handle_registration() {
             }
         }
     }
+    if (isset($myuser['name'])) {
+        $existing_account = hesk_get_customer_account_by_name($myuser['name']);
+        if ($existing_account !== null) {
+            $hesk_error_buffer['name'] = "该姓名已被使用。";
+        }
+    }
 
     $_SESSION['userdata'] = $myuser;
 
