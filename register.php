@@ -196,8 +196,10 @@ function handle_registration() {
         }
     }
     if (isset($myuser['name'])) {
-        $existing_account = hesk_get_customer_account_by_name($myuser['name']);
-        if ($existing_account !== null) {
+        $sql = "SELECT * FROM `" . hesk_dbEscape($hesk_settings['db_pfix']) . "customers`
+                WHERE `name` = '" . hesk_dbEscape($myuser['name']) . "'";
+
+        if (hesk_dbFetchAssoc($rs)) {
             $hesk_error_buffer['name'] = "该姓名已被使用。";
         }
     }
