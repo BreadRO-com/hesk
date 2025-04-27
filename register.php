@@ -199,6 +199,8 @@ function handle_registration() {
         $sql = "SELECT * FROM `" . hesk_dbEscape($hesk_settings['db_pfix']) . "customers`
                 WHERE `name` = '" . hesk_dbEscape($myuser['name']) . "'";
 
+        $rs = hesk_dbQuery($sql);
+
         if (hesk_dbFetchAssoc($rs)) {
             $hesk_error_buffer['name'] = "该姓名已被使用。";
         }
