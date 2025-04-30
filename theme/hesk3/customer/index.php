@@ -171,7 +171,7 @@ require_once(TEMPLATE_PATH . 'customer/partial/login-navbar-elements.php');
                     </div>
                     <div class="tabbed__tabs">
                         <?php if (count($topArticles) > 0): ?>
-                        <div class="tabbed__tabs_tab is-visible" data-tab="tab1">
+                        <div class="tabbed__tabs_tab" data-tab="tab1">
                             <?php foreach ($topArticles as $article): ?>
                             <a href="knowledgebase.php?article=<?php echo $article['id']; ?>" class="preview">
                                 <div class="icon-in-circle">
@@ -216,7 +216,7 @@ require_once(TEMPLATE_PATH . 'customer/partial/login-navbar-elements.php');
                         endif;
                         if (count($latestArticles) > 0):
                         ?>
-                        <div class="tabbed__tabs_tab <?php echo count($topArticles) === 0 ? 'is-visible' : ''; ?>" data-tab="tab2">
+                        <div class="tabbed__tabs_tab is-visible" data-tab="tab2">
                             <?php foreach ($latestArticles as $article): ?>
                                 <a href="knowledgebase.php?article=<?php echo $article['id']; ?>" class="preview">
                                     <div class="icon-in-circle">
