@@ -156,14 +156,14 @@ require_once(TEMPLATE_PATH . 'customer/partial/login-navbar-elements.php');
                             <?php
                             if (count($topArticles) > 0):
                             ?>
-                            <li class="current" data-link="tab1">
+                            <li data-link="tab1">
                                 <span><?php echo $hesklang['popart']; ?></span>
                             </li>
                             <?php
                             endif;
                             if (count($latestArticles) > 0):
                             ?>
-                            <li data-link="tab2">
+                            <li class="current" data-link="tab2">
                                 <span><?php echo $hesklang['latart']; ?></span>
                             </li>
                             <?php endif; ?>

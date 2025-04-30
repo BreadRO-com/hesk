@@ -295,17 +295,17 @@ $service_message_type_to_class = array(
                         <ul class="tabbed__head_tabs">
                             <?php
                             if (count($topArticles) > 0):
-                                ?>
-                                <li class="current" data-link="tab1">
-                                    <span><?php echo $hesklang['popart']; ?></span>
-                                </li>
+                            ?>
+                            <li data-link="tab1">
+                                <span><?php echo $hesklang['popart']; ?></span>
+                            </li>
                             <?php
                             endif;
                             if (count($latestArticles) > 0):
-                                ?>
-                                <li data-link="tab2">
-                                    <span><?php echo $hesklang['latart']; ?></span>
-                                </li>
+                            ?>
+                            <li class="current" data-link="tab2">
+                                <span><?php echo $hesklang['latart']; ?></span>
+                            </li>
                             <?php endif; ?>
                         </ul>
                     </div>
