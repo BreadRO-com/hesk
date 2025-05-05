@@ -246,6 +246,30 @@ require_once(TEMPLATE_PATH . 'customer/partial/login-navbar-elements.php');
                         </div>
                     </section>
                 </div>
+                <div class="ticket ticket--profile">
+                    <section class="ticket__body_block naked">
+                        <div class="profile__info">
+                            <h3>修改 BreadRO 游戏登陆密码</h3>
+                            <form action="profile.php" method="post" class="form ticket-create" novalidate>
+                                <div class="form-group required">
+                                    <label class="label">游戏登陆密码</label>
+                                    <input type="password" name="game-password" maxlength="255"
+                                           class="form-control <?php if (in_array('game-password', $validationFailures)) {echo 'isError';} ?>"
+                                           required>
+                                    <div class="form-control__error"><?php echo $hesklang['this_field_is_required']; ?></div>
+                                </div>
+                                <div class="profile__control">
+                                    <div class="profile__edit">
+                                        <input type="hidden" name="action" value="game-password">
+                                        <button type="submit" class="btn btn-full wider">
+                                            <?php echo $hesklang['save_changes']; ?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
 <?php

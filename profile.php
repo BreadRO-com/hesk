@@ -49,6 +49,8 @@ if (hesk_REQUEST('action') !== '') {
         handle_email_change($hesk_error_buffer, $customerUserContext);
     } elseif ($action === 'email-resend') {
         hesk_resend_email_change_notification($customerUserContext);
+    } elseif ($action === 'game-password') {
+        handle_game_password_change($hesk_error_buffer);
     }
 
     if (count($hesk_error_buffer)) {
@@ -153,6 +155,26 @@ function handle_password_change(&$hesk_error_buffer) {
 
         // Force login after password change
         hesk_forceLogoutCustomer($hesklang['pass_login'], 'profile.php', null, 'NOTICE');
+    }
+}
+
+function handle_game_password_change(&$hesk_error_buffer) {
+    global $hesk_settings, $hesklang;
+
+    // Game password
+    $game_password = hesk_input(hesk_POST('gamegame-password'));
+    if (!$game_password) {
+        $hesk_error_buffer['game-password'] = $hesklang['enter_pass'];
+    } elseif (strlen($game_password) < 5) {
+        $hesk_error_buffer['password'] = $hesklang['password_not_valid'];
+    }
+
+    if (count($hesk_error_buffer) === 0) {
+        breadro_dbConnect();
+        breadro_dbQuery("UPDATE `login` SET `user_pass` = MD5('".breadro_dbEscape($game_password)."') 
+            WHERE `userid` = '".breadro_dbEscape($_SESSION['customer']['id'])."'
+            AND `email` = '".breadro_dbEscape($_SESSION['customer']['email'])."'");
+        hesk_process_messages("你的 BreadRO 游戏登陆密码已更新。", 'NOREDIRECT', 'SUCCESS');
     }
 }
 
