@@ -20,6 +20,7 @@ require(HESK_PATH . 'hesk_settings.inc.php');
 define('TEMPLATE_PATH', HESK_PATH . "theme/{$hesk_settings['site_theme']}/");
 require(HESK_PATH . 'inc/common.inc.php');
 require(HESK_PATH . 'inc/customer_accounts.inc.php');
+require(HESK_PATH . 'inc/breadro.inc.php');
 
 // Are we in maintenance mode?
 hesk_check_maintenance();
