@@ -162,11 +162,11 @@ function handle_game_password_change(&$hesk_error_buffer) {
     global $hesk_settings, $hesklang;
 
     // Game password
-    $game_password = hesk_input(hesk_POST('gamegame-password'));
+    $game_password = hesk_input(hesk_POST('game-password'));
     if (!$game_password) {
         $hesk_error_buffer['game-password'] = $hesklang['enter_pass'];
     } elseif (strlen($game_password) < 5) {
-        $hesk_error_buffer['password'] = $hesklang['password_not_valid'];
+        $hesk_error_buffer['game-password'] = $hesklang['password_not_valid'];
     }
 
     if (count($hesk_error_buffer) === 0) {
