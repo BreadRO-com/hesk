@@ -172,7 +172,7 @@ function handle_game_password_change(&$hesk_error_buffer) {
     if (count($hesk_error_buffer) === 0) {
         breadro_dbConnect();
         breadro_dbQuery("UPDATE `login` SET `user_pass` = MD5('".breadro_dbEscape($game_password)."') 
-            WHERE `userid` = '".breadro_dbEscape($_SESSION['customer']['id'])."'
+            WHERE `userid` = '".breadro_dbEscape($_SESSION['customer']['name'])."'
             AND `email` = '".breadro_dbEscape($_SESSION['customer']['email'])."'");
         hesk_process_messages("你的 BreadRO 游戏登陆密码已更新。", 'NOREDIRECT', 'SUCCESS');
     }
