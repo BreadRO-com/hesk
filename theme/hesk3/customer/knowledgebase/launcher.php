@@ -86,7 +86,7 @@ $service_message_type_to_class = array(
         <div class="main__content">
             <div class="contr">
                 <?php if (count($articlesInCategory) > 0): ?>
-                <article class="article" <?php if (count($subcategories) == 0) echo 'style="margin-top: -20px"'; ?>>
+                <article class="article">
                     <div class="block__head">
                         <h3 class="h-3 text-center"><?php echo $currentCategory['name']; ?></h3>
                     </div>
