@@ -104,6 +104,7 @@ $hesk_settings['public_kb_categories'] = hesk_kbCategoriesArray();
 /* Any category ID set? */
 $catid = intval( hesk_GET('category', 1) );
 $artid = intval( hesk_GET('article', 0) );
+$is_launcher = intval( hesk_GET('launcher', 0) );
 
 if (isset($_GET['search']))
 {
@@ -142,7 +143,7 @@ elseif ($artid)
 }
 else
 {
-	hesk_show_kb_category($catid);
+	hesk_show_kb_category($catid, is_launcher: $is_launcher);
 }
 
 exit();
@@ -274,7 +275,7 @@ function hesk_show_kb_article($artid)
 } // END hesk_show_kb_article()
 
 
-function hesk_show_kb_category($catid, $is_search = 0) {
+function hesk_show_kb_category($catid, $is_search = 0, $is_launcher = 0) {
 	global $hesk_settings, $hesklang;
 
 	$res = hesk_dbQuery("SELECT `id`,`name`,`parent` FROM `".hesk_dbEscape($hesk_settings['db_pfix'])."kb_categories` WHERE `id`='{$catid}' AND `type`='0' LIMIT 1");
@@ -340,7 +341,8 @@ function hesk_show_kb_category($catid, $is_search = 0) {
     } // END if NumRows > 0
 
     $articles_in_category = array();
-    $res = hesk_dbQuery("SELECT `id`, `subject`, LEFT(`content`, ".max(200, $hesk_settings['kb_substrart'] * 2).") AS `content`, `rating`, `votes`, `views` FROM `".hesk_dbEscape($hesk_settings['db_pfix'])."kb_articles` WHERE `catid`='{$catid}' AND `type`='0' ORDER BY `sticky` DESC, `art_order` ASC");
+    $article_order = $is_launcher ? "DESC" : "ASC";
+    $res = hesk_dbQuery("SELECT `id`, `subject`, LEFT(`content`, ".max(200, $hesk_settings['kb_substrart'] * 2).") AS `content`, `rating`, `votes`, `views` FROM `".hesk_dbEscape($hesk_settings['db_pfix'])."kb_articles` WHERE `catid`='{$catid}' AND `type`='0' ORDER BY `sticky` DESC, `art_order` {$article_order}");
 
     while ($article = hesk_dbFetchAssoc($res))
     {
@@ -369,7 +371,11 @@ function hesk_show_kb_category($catid, $is_search = 0) {
     $response['customerUserContext'] = $customerUserContext;
     $response['serviceMessages'] = hesk_get_service_messages($service_messages_location);
 
-    $hesk_settings['render_template'](TEMPLATE_PATH . 'customer/knowledgebase/view-category.php', $response);
+    if ($is_launcher) {
+        $hesk_settings['render_template'](TEMPLATE_PATH . 'customer/knowledgebase/launcher.php', $response);
+    } else {
+        $hesk_settings['render_template'](TEMPLATE_PATH . 'customer/knowledgebase/view-category.php', $response);
+    }
 } // END hesk_show_kb_category()
 
 
